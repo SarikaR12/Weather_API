@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="header">
+      <div class="serch-box">
+        <input type="text" placeholder="enter your location" class="input-box" id="city">
+
+        <button id="searchBtn" onclick="weather()"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+    </div>
+    <div class="weather-body">
+      <img src="https://uxwing.com/wp-content/themes/uxwing/download/weather/weather-icon.png" alt="cloud"
+        class="weather-img">
+      <div class="weather-box">
+        <p class="tempratures" id="temp">0 <sup>°C.</sup></p>
+        <p class="description">Light Rain</p>
+      </div>
+      <div class="weather-details">
+        <div class="humidiy">
+          <i class="fa-sharp fa-solid fa-droplet"></i>
+          <div class="text">
+            <p><span id="humidity">0</span>%</p>
+            <p id="humi">Humidity</p>
+          </div>
+        </div>
+        <div class="Wind">
+          <i class="fa-solid fa-wind"></i>
+          <div class="text">
+            <p><span id="wind_speed">0</span>km/H</p>
+            <p id="speed">wind-speed</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="banner-table">
+    <div class="row">
+      <div class="col-lg-9">
+        <div class="banner-head">
+          <h2></h2>
+        </div>
+        <table border="1">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div> -->
+
+
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+  <script>
+
+    let weather = async () => {
+      let city = document.getElementById("city").value;
+
+      const url = `https://weather-api138.p.rapidapi.com/weather?city_name=${city}`;
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': 'ba7e16758fmsh39073a9712ae791p19c9d7jsn04beab417c99',
+          'X-RapidAPI-Host': 'weather-api138.p.rapidapi.com'
+        }
+      };
+
+      try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        console.log(result);
+
+
+        temp.innerHTML = result.main.temp
+        wind_speed.innerHTML = result.wind.speed
+        humidity.innerHTML = result.main.humidity;
+
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    weather();
+
+  </script>
+  
+</body>
+
+</html>
