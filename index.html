@@ -45,31 +45,38 @@
     </div>
   </div>
 
-  <!-- <div class="banner-table">
-    <div class="row">
-      <div class="col-lg-9">
-        <div class="banner-head">
-          <h2></h2>
-        </div>
-        <table border="1">
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="body"></tbody>
-        </table>
-      </div>
-    </div>
-  </div> -->
+  <div class="banner-head">
+    <h2>Weather of other common places</h2>
+  </div>
+  <table border="1px" cellspacing="0">
+    <thead>
+      <tr>
+        <th>city_Name</th>
+        <th>cloud_pct</th>
+        <th>feels_like</th>
+        <th>Humidity</th>
+        <th>Max_temp</th>
+        <th>Mon_temp</th>
+        <th>Sunrise</th>
+        <th>Sunset</th>
+        <th>Temp</th>
+        <th>Wind_deggres</th>
+        <th>Wind_speed</th>
+
+      </tr>
+    </thead>
+    <tbody id="tbody">
+
+    </tbody>
+  </table>
+
 
 
   <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
   <script>
+
+    let weatherdata = JSON.parse(localStorage.getItem("weatherdata")) || []
 
     let weather = async () => {
       let city = document.getElementById("city").value;
@@ -88,19 +95,57 @@
         const result = await response.json();
         console.log(result);
 
+        let cityindex = weatherdata.findIndex(item => item.name === city);
+        if (cityindex === -1) {
+          weatherdata.push({ data: result, name: city });
+          console.log(weatherdata);
+        } else {
+          weatherdata[cityindex].data = result;
+          console.log("City already exists in the wetherdata array.");
+        }
+        localStorage.setItem("weatherdata", JSON.stringify(weatherdata));
 
         temp.innerHTML = result.main.temp
         wind_speed.innerHTML = result.wind.speed
         humidity.innerHTML = result.main.humidity;
 
+        // weatherdata.push({ data: result })
+        // console.log(weatherdata);
+
+        // localStorage.setItem("weatherdata", JSON.stringify(weatherdata))
+
       } catch (error) {
         console.error(error);
       }
+      table()
     }
-    weather();
+
+    let table = () => {
+      let data = JSON.parse(localStorage.getItem("weatherdata"))
+      console.log(data);
+      let tbody = document.getElementById("tbody")
+      tbody.innerHTML = " "
+      data.map((val) => {
+        let tr = document.createElement("tr")
+        tr.innerHTML = `<td>${val.data.name}</td>
+                      <td>${val.data.clouds.all}</td>
+                      <td>${val.data.main.feels_like}</td>
+                      <td>${val.data.main.humidity}%</td>
+                      <td>${val.data.main.temp_max}</td>
+                      <td>${val.data.main.temp_min}</td>
+                      <td>${val.data.sys.sunrise}</td>
+                      <td>${val.data.sys.sunset}</td>
+                      <td>${val.data.main.temp}</td>
+                      <td>${val.data.wind.deg}</td>
+                      <td>${val.data.wind.speed}0km/H</td>`
+        tbody.appendChild(tr)
+      })
+
+    }
+    table()
 
   </script>
-  
+
 </body>
 
 </html>
