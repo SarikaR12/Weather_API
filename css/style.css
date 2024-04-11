@@ -6,10 +6,6 @@
     outline: none;
 }
 body{
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     background: #63e3c5;
 
 }
@@ -20,6 +16,7 @@ body{
     border-radius: 12px;
     padding: 28px;
     background: linear-gradient(120deg, #43b496, #7b68f6);
+    margin: 20px auto;
 }
 .serch-box{
     width: 100%;
@@ -40,7 +37,6 @@ body{
 }
 .serch-box input::placeholder{
     color: #000;
-
 }
 .serch-box button{
     width: 46px;
@@ -68,6 +64,7 @@ body{
 .weather-box{
     margin-block: 20px;
     text-align: center;
+    color: white;
 }
 .weather-box .tempratures{
     font-size: 40px;
@@ -88,6 +85,7 @@ body{
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
+    color: white;
 }
 .humidity .wind{
     display: flex;
@@ -101,8 +99,20 @@ body{
     margin-left: 15px;
     font-size: 16px;
 }
+.banner-head{
+    text-align: center;
+    font-size: 20px;
+    margin: 30px;
+}
 .text span{
     font-size: 20px;
     font-weight: 700;
 } 
-
+table,th,tr,td{
+    border: 1px solid black;
+    margin: 0 auto;
+    text-align: center;
+}
+table th ,td{
+    padding: 10px;
+}
